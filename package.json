@@ -1,0 +1,52 @@
+{
+  "name": "slack-listener",
+  "author": "takkyun",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/takkyun/slack-listener.git"
+  },
+  "babel": {
+    "sourceMaps": "inline",
+    "presets": [
+      "es2015",
+      "react",
+      "stage-2"
+    ]
+  },
+  "config": {
+    "buildIgnores": "--ignore=.gitignore --ignore=.idea --ignore=_workspace --ignore=dist --ignore=.eslintrc --ignore=README\\..*"
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . slack-listener --platform darwin --arch x64 --out dist $npm_package_config_buildIgnores",
+    "build:win": "electron-packager . slack-listener --platform win32 --arch x64 --out dist $npm_package_config_buildIgnores",
+    "clean": "rm -rf dist/"
+  },
+  "dependencies": {
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "babel-register": "^6.5.2",
+    "electron-json-storage": "^3.0.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "slack": "^8.2.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-transform-react-jsx": "^6.23.0",
+    "electron": "^1.6.2",
+    "electron-packager": "^8.5.2",
+    "eslint": "^3.16.1",
+    "eslint-config-eslint": "^4.0.0",
+    "eslint-plugin-node": "^4.1.0",
+    "eslint-plugin-react": "^6.10.0"
+  },
+  "description": "A simple app to observe Slack channels",
+  "keywords": [
+    "Slack"
+  ]
+}

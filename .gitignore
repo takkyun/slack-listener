@@ -1,0 +1,5 @@
+_workspace
+.idea
+node_modules
+dist
+app/assets/conf.json
