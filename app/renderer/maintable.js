@@ -35,7 +35,7 @@ export default class MainTable extends React.Component {
         rowClass += ' new';
       }
       return (
-        <tr key={index} data-link={channel.link} onClick={this._onClickTableRow.bind(this)} className={rowClass}>
+        <tr key={channel.id} data-link={channel.link} onClick={this._onClickTableRow.bind(this)} className={rowClass}>
           <td data-title="date">{channel.date}</td>
           <td data-title="team">{channel.team}</td>
           <td data-title="channel">{channel.channel}</td>
