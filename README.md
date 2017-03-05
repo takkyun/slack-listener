@@ -17,8 +17,8 @@ Need to configure your team token in `app/assets/conf.json`
 ```json
 {
   "tokens": {
-    "team-1-name": "your-token-for-tame-1",
-    "team-2-name": "your-token-for-tame-2"
+    "team-1-name": "your-token-for-team-1",
+    "team-2-name": "your-token-for-team-2"
   },
   "ignore": ["class", "coffee-break"]
 }

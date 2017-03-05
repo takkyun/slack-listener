@@ -1,6 +1,6 @@
 {
   "tokens": {
-    "team-1-name": "your-token-for-tame-1"
+    "team-1-name": "your-token-for-team-1"
   },
   "ignore": ["class", "coffee-break"]
 }

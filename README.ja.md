@@ -17,8 +17,8 @@ kegamin さんの作成された [electron_test](https://github.com/kegamin/elec
 ```json
 {
   "tokens": {
-    "team-1-name": "your-token-for-tame-1",
-    "team-2-name": "your-token-for-tame-2"
+    "team-1-name": "your-token-for-team-1",
+    "team-2-name": "your-token-for-team-2"
   },
   "ignore": ["class", "coffee-break"]
 }
