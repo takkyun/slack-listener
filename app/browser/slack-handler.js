@@ -9,9 +9,9 @@ const AppConfig = require('../assets/conf.json');
 const MIN_IN_SEC = 60;
 const HOUR_IN_SEC = MIN_IN_SEC * 60;
 const DAY_IN_SEC = HOUR_IN_SEC * 24;
-const CHANNEL_UPDATE_IN_SEC = 2000;
-const TEAM_UPDATE_IN_SEC = 60 * CHANNEL_UPDATE_IN_SEC;
-const MAX_REFRESH_WAIT_IN_SEC = 5000;
+const CHANNEL_UPDATE_IN_MSEC = 2000;
+const TEAM_UPDATE_IN_MSEC = 60 * CHANNEL_UPDATE_IN_MSEC;
+const MAX_REFRESH_WAIT_IN_MSEC = 5000;
 
 export default class SlackHandler {
 
@@ -124,7 +124,7 @@ export default class SlackHandler {
 
   _handleRefresh(forceRefresh) {
     const now = new Date();
-    if (forceRefresh || this._updatedTime.getTime() + MAX_REFRESH_WAIT_IN_SEC < now.getTime()) {
+    if (forceRefresh || this._updatedTime.getTime() + MAX_REFRESH_WAIT_IN_MSEC < now.getTime()) {
       this._updatedTime = now;
       if (this.onRefresh) {
         this.onRefresh();
@@ -172,7 +172,7 @@ export default class SlackHandler {
   _reserveNextListUpdate(team) {
     setTimeout(() => {
       this._updateChannels(team);
-    }, TEAM_UPDATE_IN_SEC);
+    }, TEAM_UPDATE_IN_MSEC);
   }
 
   _getChannelInfo(team, channelId) {
@@ -215,7 +215,7 @@ export default class SlackHandler {
     // making delay randomized so that we do fetch channel info inconsistently.
     setTimeout(() => {
       this._getChannelInfo(team, channelId);
-    }, CHANNEL_UPDATE_IN_SEC + (Math.random() - 0.5) * 500);
+    }, CHANNEL_UPDATE_IN_MSEC + (Math.random() - 0.5) * 500);
   }
 
   _getTeamInfo(team) {
