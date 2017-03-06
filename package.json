@@ -21,8 +21,11 @@
   },
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . slack-listener --platform darwin --arch x64 --out dist $npm_package_config_buildIgnores",
+    "build": "npm run build:all",
+    "build:all": "npm run build:mac && npm run build:win && npm run build:lin",
+    "build:mac": "electron-packager . slack-listener --platform darwin --arch x64 --out dist $npm_package_config_buildIgnores",
     "build:win": "electron-packager . slack-listener --platform win32 --arch x64 --out dist $npm_package_config_buildIgnores",
+    "build:lin": "electron-packager . slack-listener --platform linux --arch x64 --out dist $npm_package_config_buildIgnores",
     "clean": "rm -rf dist/"
   },
   "dependencies": {
