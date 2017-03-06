@@ -11,6 +11,7 @@ const HOUR_IN_SEC = MIN_IN_SEC * 60;
 const DAY_IN_SEC = HOUR_IN_SEC * 24;
 const CHANNEL_UPDATE_IN_SEC = 2000;
 const TEAM_UPDATE_IN_SEC = 60 * CHANNEL_UPDATE_IN_SEC;
+const MAX_REFRESH_WAIT_IN_SEC = 5000;
 
 export default class SlackHandler {
 
@@ -121,6 +122,16 @@ export default class SlackHandler {
     return 'slack://channel?team=' + this._teams[team] + '&id=' + channel;
   }
 
+  _handleRefresh(forceRefresh) {
+    const now = new Date();
+    if (forceRefresh || this._updatedTime.getTime() + MAX_REFRESH_WAIT_IN_SEC < now.getTime()) {
+      this._updatedTime = now;
+      if (this.onRefresh) {
+        this.onRefresh();
+      }
+    }
+  }
+
   _sortData() {
     let channelIds = Object.keys(this._channels);
     channelIds = channelIds.filter((id) => {
@@ -131,11 +142,8 @@ export default class SlackHandler {
       const dateB = this._channels[idB].last_message.post_time;
       return dateB - dateA;
     });
-    this._updatedTime = new Date();
     this._sortedChannelIds = channelIds;
-    if (this.onRefresh) {
-      this.onRefresh();
-    }
+    this._handleRefresh(true);
   }
 
   _updateTeam() {
@@ -192,10 +200,7 @@ export default class SlackHandler {
         this._sortData();
       }
       else {
-        this._updatedTime = new Date();
-        if (this.onRefresh) {
-          this.onRefresh();
-        }
+        this._handleRefresh(false);
       }
       if (!this._users[channel.last_message.user_id]) {
         this._getUserInfo(team, channel.last_message.user_id);
@@ -225,10 +230,8 @@ export default class SlackHandler {
   _getUserInfo(team, userId) {
     const updateName = (name) => {
       this._users[userId] = name;
-      if (this.onRefresh) {
-        this.onRefresh();
-      }
       this._cacheUsers();
+      this._handleRefresh(true);
     };
     let param = { token: this._tokens[team] };
     if (userId.startsWith('user_')) {
