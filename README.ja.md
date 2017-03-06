@@ -50,7 +50,7 @@ npm start
 npm run build
 ```
 
-* 上記コマンドでは macOS 用アプリのみ作成します。
+* macOS / Windows / Linux 用アプリを作成します。
 
 ## コピーライト
 

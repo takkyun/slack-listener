@@ -49,7 +49,7 @@ npm start
 npm run build
 ```
 
-* It only builds a binary for macOS right now.
+* It builds binaries for macOS / Windows / Linux.
 
 ## Copyright
 
