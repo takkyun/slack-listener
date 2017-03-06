@@ -8,7 +8,7 @@ It's based on [electron_test](https://github.com/kegamin/electron_test.git)
 
 * observe last message for each private channel
 * sort channels by last update time
-* click to open a channel offical slack client (confirmed it only on macOS)
+* click to open a channel offical slack client (confirmed it on macOS Sierra / Windows 10 / Ubuntu 16.04)
 
 ## Configuration
 

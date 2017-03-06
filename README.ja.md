@@ -8,7 +8,7 @@ kegamin さんの作成された [electron_test](https://github.com/kegamin/elec
 
 * 設定したチームのプライベートチャネルの更新状況を表示します
 * プライベートチャネルは更新時刻でソートされます
-* 該当チャネルを公式 Slack アプリで開くことができます (macOS のみで確認)
+* 該当チャネルを公式 Slack アプリで開くことができます (macOS Sierra / Windows 10 / Ubuntu 16.04 で確認)
 
 ## 基本設定
 
