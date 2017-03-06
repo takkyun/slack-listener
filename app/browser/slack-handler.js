@@ -185,9 +185,18 @@ export default class SlackHandler {
         is_ignored: SlackHandler.shouldIgnoreChannel(data.group),
         last_message: SlackHandler.convertMessage(data.group.latest),
       };
+      const cache = this._channels[channel.id];
       this._channels[channel.id] = channel;
-      this._cacheChannels();
-      this._sortData();
+      if (!cache || cache.last_message.post_time != channel.last_message.post_time) {
+        this._cacheChannels();
+        this._sortData();
+      }
+      else {
+        this._updatedTime = new Date();
+        if (this.onRefresh) {
+          this.onRefresh();
+        }
+      }
       if (!this._users[channel.last_message.user_id]) {
         this._getUserInfo(team, channel.last_message.user_id);
       }
