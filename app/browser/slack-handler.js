@@ -212,9 +212,10 @@ export default class SlackHandler {
   }
 
   _reserveNextChannelUpdate(team, channelId) {
+    // making delay randomized so that we do fetch channel info inconsistently.
     setTimeout(() => {
       this._getChannelInfo(team, channelId);
-    }, CHANNEL_UPDATE_IN_SEC);
+    }, CHANNEL_UPDATE_IN_SEC + (Math.random() - 0.5) * 500);
   }
 
   _getTeamInfo(team) {
