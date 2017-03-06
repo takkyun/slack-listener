@@ -9,6 +9,8 @@ const AppConfig = require('../assets/conf.json');
 const MIN_IN_SEC = 60;
 const HOUR_IN_SEC = MIN_IN_SEC * 60;
 const DAY_IN_SEC = HOUR_IN_SEC * 24;
+const CHANNEL_UPDATE_IN_SEC = 2000;
+const TEAM_UPDATE_IN_SEC = 60 * CHANNEL_UPDATE_IN_SEC;
 
 export default class SlackHandler {
 
@@ -162,7 +164,7 @@ export default class SlackHandler {
   _reserveNextListUpdate(team) {
     setTimeout(() => {
       this._updateChannels(team);
-    }, 60 * 2000);
+    }, TEAM_UPDATE_IN_SEC);
   }
 
   _getChannelInfo(team, channelId) {
@@ -198,7 +200,7 @@ export default class SlackHandler {
   _reserveNextChannelUpdate(team, channelId) {
     setTimeout(() => {
       this._getChannelInfo(team, channelId);
-    }, 2000);
+    }, CHANNEL_UPDATE_IN_SEC);
   }
 
   _getTeamInfo(team) {
