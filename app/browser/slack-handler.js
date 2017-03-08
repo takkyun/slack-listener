@@ -72,6 +72,7 @@ export default class SlackHandler {
           }
           else {
             this._channels = data;
+            this._sortData();
           }
           return Promise.resolve();
         });
@@ -83,6 +84,7 @@ export default class SlackHandler {
           }
           else {
             this._users = data;
+            this._handleRefresh(true);
           }
           return Promise.resolve();
         });
