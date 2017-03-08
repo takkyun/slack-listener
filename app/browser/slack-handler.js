@@ -201,7 +201,7 @@ export default class SlackHandler {
         id: data.group.id,
         team: team,
         name: data.group.name,
-        is_new: data.group.unread_count > 0,
+        is_new: data.group.unread_count_display > 0,
         is_ignored: SlackHandler.shouldIgnoreChannel(data.group),
         last_message: SlackHandler.convertMessage(data.group.latest),
       };
