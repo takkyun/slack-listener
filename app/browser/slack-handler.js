@@ -2,6 +2,7 @@
 
 import slack from 'slack';
 import Storage from 'electron-json-storage';
+import FirableTimer from './firable-timer.js';
 
 const ChannelCache = 'channel_cache';
 const UserCache = 'user_cache';
@@ -23,6 +24,7 @@ export default class SlackHandler {
     this._teams = {};
     this._tokens = AppConfig['tokens'];
     this._updatedTime = new Date();
+    this._reserves = {};
     this._loadCache(() => {
       this._updateTeam();
     });
@@ -42,6 +44,14 @@ export default class SlackHandler {
         lastMessage: channel.last_message.text,
       };
     });
+  }
+
+  updateChannel(channelId) {
+    const runner = this._reserves[channelId];
+    if (runner) {
+      // force to update after 0.5 sec
+      runner.run(500);
+    }
   }
 
   getSize() {
@@ -212,10 +222,13 @@ export default class SlackHandler {
   }
 
   _reserveNextChannelUpdate(team, channelId) {
-    // making delay randomized so that we do fetch channel info inconsistently.
-    setTimeout(() => {
+    const runner = new FirableTimer(() => {
+      this._reserves[channelId] = null;
       this._getChannelInfo(team, channelId);
-    }, CHANNEL_UPDATE_IN_MSEC + (Math.random() - 0.5) * 500);
+    });
+    this._reserves[channelId] = runner;
+    // making delay randomized so that we do fetch channel info inconsistently.
+    runner.run(CHANNEL_UPDATE_IN_MSEC + (Math.random() - 0.5) * 500);
   }
 
   _getTeamInfo(team) {

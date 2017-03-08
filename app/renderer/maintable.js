@@ -19,12 +19,15 @@ export default class MainTable extends React.Component {
   _onClickTableRow(event) {
     let target = event.target;
     let channelLink = undefined;
+    let channelId = undefined;
     while (target && !channelLink) {
       channelLink = target.getAttribute('data-link');
+      channelId = target.getAttribute('data-id');
       target = target.parentElement;
     }
     if (channelLink) {
       document.location.href = channelLink;
+      this._slack.updateChannel(channelId);
     }
   }
 
@@ -35,7 +38,11 @@ export default class MainTable extends React.Component {
         rowClass += ' new';
       }
       return (
-        <tr key={channel.id} data-link={channel.link} onClick={this._onClickTableRow.bind(this)} className={rowClass}>
+        <tr key={channel.id}
+            data-id={channel.id}
+            data-link={channel.link}
+            onClick={this._onClickTableRow.bind(this)}
+            className={rowClass}>
           <td data-title="date">{channel.date}</td>
           <td data-title="team">{channel.team}</td>
           <td data-title="channel">{channel.channel}</td>
