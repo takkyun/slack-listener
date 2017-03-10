@@ -172,12 +172,15 @@ export default class SlackHandler {
         this._sortData();
         return;
       }
-      data.groups.forEach((channelInfo, index, array) => {
-        this._getChannelInfo(team, channelInfo.id);
-        if (index == array.length - 1) {
-          this._reserveNextListUpdate(team);
+      data.groups.forEach((channelInfo) => {
+        if (this._channels[channelInfo.id]) {
+          this._reserveNextChannelUpdate(team, channelInfo.id);
+        }
+        else {
+          this._getChannelInfo(team, channelInfo.id);
         }
       });
+      this._reserveNextListUpdate(team);
     });
   }
 
