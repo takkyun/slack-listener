@@ -1,3 +1,5 @@
+**Caution!** : This repository is no longer maintained.
+
 # slack-listner
 
 A simple application to observe all private channels update time.
